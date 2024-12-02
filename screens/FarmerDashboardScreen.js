@@ -1,14 +1,39 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 export default function FarmerDashboard({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>Farmer Dashboard</Text>
-      <Button title="Weather Forecasts" onPress={() => navigation.navigate('WeatherForecasts')} />
-      <Button title="Market Prices" onPress={() => navigation.navigate('MarketPrices')} />
-      <Button title="Farming Tips" onPress={() => navigation.navigate('FarmingTips')} />
-      <Button title="News" onPress={() => navigation.navigate('News')} />
+      <Text style={styles.title}>Farmer Dashboard</Text>
+      <Text style={styles.subtitle}>Manage your resources and stay updated</Text>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('WeatherForecasts')}
+      >
+        <Text style={styles.buttonText}>Weather Forecasts</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('MarketPrices')}
+      >
+        <Text style={styles.buttonText}>Market Prices</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('FarmingTips')}
+      >
+        <Text style={styles.buttonText}>Farming Tips</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('News')}
+      >
+        <Text style={styles.buttonText}>News</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -19,33 +44,33 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#f0f8ff', 
   },
   title: {
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: 'bold',
-    marginBottom: 10,
     color: '#333',
+    marginBottom: 10,
+    textAlign: 'center',
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 18,
+    color: '#555',
     marginBottom: 30,
-    color: '#666',
     textAlign: 'center',
   },
   button: {
     backgroundColor: '#007bff',
     paddingVertical: 15,
-    paddingHorizontal: 30,
     borderRadius: 10,
     elevation: 3,
     marginBottom: 15,
-    width: '100%',
+    width: '80%',
+    alignItems: 'center',
   },
   buttonText: {
     fontSize: 18,
     color: '#fff',
     fontWeight: 'bold',
-    textAlign: 'center',
   },
 });

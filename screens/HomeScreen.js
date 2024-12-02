@@ -1,28 +1,27 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import {auth} from '../firebaseConfig.js';
+import { auth } from '../firebaseConfig.js';
 
 export default function HomeScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // function to handle the login
+  // Function to handle the login
   const handleLogin = () => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Navigate to Role Selection after successful login
-      navigation.navigate('RoleSelection');
-    })
-    .catch((error) => {
-      console.error(error);
-      alert(error.message)
-      // Handle errors here
-    })
-  } 
-  
-  // the function to handle the registration
+      .then((userCredential) => {
+        // Navigate to Role Selection after successful login
+        navigation.navigate('RoleSelection');
+      })
+      .catch((error) => {
+        console.error(error);
+        alert(error.message); // Handle errors here
+      });
+  };
+
+  // Function to handle the registration
   const handleRegister = () => {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
@@ -32,11 +31,14 @@ export default function HomeScreen({ navigation }) {
       })
       .catch((error) => {
         console.error(error);
+        alert(error.message); // Handle errors here
       });
   };
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Welcome</Text>
+
       <TextInput
         placeholder="Email"
         value={email}
@@ -50,8 +52,13 @@ export default function HomeScreen({ navigation }) {
         secureTextEntry
         style={styles.input}
       />
-      <Button title="Register" onPress={handleRegister} />
-      <Button title="Login" onPress={handleLogin} />
+
+      <TouchableOpacity style={styles.button} onPress={handleRegister}>
+        <Text style={styles.buttonText}>Register</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -65,16 +72,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
   },
   title: {
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 30,
     color: '#333',
-  },
-  subtitle: {
-    fontSize: 16,
-    marginBottom: 40,
-    color: '#666',
-    textAlign: 'center',
   },
   input: {
     height: 50,
@@ -84,25 +85,19 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 15,
     marginBottom: 20,
+    backgroundColor: '#fff',
   },
   button: {
+    width: '100%',
     backgroundColor: '#007bff',
     paddingVertical: 15,
-    paddingHorizontal: 30,
     borderRadius: 10,
-    elevation: 3,
+    alignItems: 'center',
     marginBottom: 15,
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: 20,
     color: '#fff',
     fontWeight: 'bold',
-  },
-  link: {
-    marginTop: 20,
-  },
-  linkText: {
-    color: '#007bff',
-    textDecorationLine: 'underline',
   },
 });
